@@ -15,8 +15,8 @@ import java.awt.Graphics;
  * */
 public class Scribble extends Applet {
   private int lastX, lastY;
-  Button clearButton;
-  Graphics graphics;
+  private Button clearButton;
+  private Graphics graphics;
 
   /**
    * Initializes the button and the Graphics object.
