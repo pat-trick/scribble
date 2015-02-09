@@ -1,55 +1,102 @@
-// This example is from _Java Examples in a Nutshell_. (http://www.oreilly.com)
-// Copyright (c) 1997 by David Flanagan
-// This example is provided WITHOUT ANY WARRANTY either expressed or implied.
-// You may study, use, modify, and distribute it for non-commercial purposes.
-// For any commercial use, see http://www.davidflanagan.com/javaexamples
+import java.applet.Applet;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Event;
+import java.awt.Graphics;
 
-import java.applet.*;
-import java.awt.*;
-
-/** A simple applet that uses the Java 1.0 event handling model */
+/**
+ * This example is from _Java Examples in a Nutshell_. (http://www.oreilly.com).
+ * Copyright (c) 1997 by David Flanagan
+ * This example is provided WITHOUT ANY WARRANTY either expressed or implied.
+ * You may study, use, modify, and distribute it for non-commercial purposes.
+ * For any commercial use, see http://www.davidflanagan.com/javaexamples
+ *
+ * A simple applet that uses the Java 1.0 event handling model.
+ * */
 public class Scribble extends Applet {
-  private int lastx, lasty;    // remember last mouse coordinates
-  Button clear_button;         // the Clear button
-  Graphics g;                  // A Graphics object for drawing
+  private int lastX, lastY;
+  Button clearButton;
+  Graphics graphics;
 
-  /** Initialize the button and the Graphics object */
+  /**
+   * Initializes the button and the Graphics object.
+   */
+  @Override
   public void init() {
-    clear_button = new Button("Clear");
-    this.add(clear_button);
-    g = this.getGraphics();
+    clearButton = new Button("Clear");
+    this.add(clearButton);
+    graphics = this.getGraphics();
   }
-  /** Respond to mouse clicks */
+
+  /**
+   * Responds to mouse clicks.
+   *
+   * @param e Event passed to function
+   * @param x x position of mouse cursor
+   * @param y y position of mouse cursor
+   * @return True for all cases
+   */
   public boolean mouseDown(Event e, int x, int y) {
-    lastx = x; lasty = y;
+    lastX = x;
+    lastY = y;
     return true;
   }
-  /** Respond to mouse drags */
+
+  /**
+   * Responds to mouse drags.
+   *
+   * @param e Event passed to the function.
+   * @param x x position of the mouse cursor.
+   * @param y y position of the mouse cursor.
+   * @return True for all cases.
+   */
   public boolean mouseDrag(Event e, int x, int y) {
-    g.setColor(Color.black);
-    g.drawLine(lastx, lasty, x, y);
-    lastx = x; lasty = y;
+    graphics.setColor(Color.black);
+    graphics.drawLine(lastX, lastY, x, y);
+    lastX = x;
+    lastY = y;
     return true;
   }
-  /** Respond to key presses */
+
+  /**
+   * Responds to all key presses.
+   *
+   * @param e Event passed to the function.
+   * @param key Key that was pressed.
+   * @return Returns True if the keypress is 'c'; otherwise false.
+   */
   public boolean keyDown(Event e, int key) {
     if ((e.id == Event.KEY_PRESS) && (key == 'c')) {
       clear();
       return true;
     }
-    else return false;
+    else {
+      return false;
+    }
   }
-  /** Respond to Button clicks */
+
+  /**
+   * Responds to Button clicks.
+   *
+   * @param e Event passed to the function.
+   * @param arg Arguments passed with the event; ignored.
+   * @return Returns True if the clearButton was clicked; otherwise false.
+   */
   public boolean action(Event e, Object arg) {
-    if (e.target == clear_button) {
+    if (e.target == clearButton) {
       clear();
       return true;
     }
-    else return false;
+    else {
+      return false;
+    }
   }
-  /** convenience method to erase the scribble */
+
+  /**
+   * Convenience method to erase the scribble.
+   * */
   public void clear() {
-    g.setColor(this.getBackground());
-    g.fillRect(0, 0, bounds().width, bounds().height);
+    graphics.setColor(this.getBackground());
+    graphics.fillRect(0, 0, bounds().width, bounds().height);
   }
 }
